@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://bu3wj2egls2kt"]
+
+[ext_resource type="Script" path="res://ptt/player_ptt.gd" id="1_s8v8x"]
+[ext_resource type="Script" path="res://ptt/fsm.gd" id="2_2osc3"]
+[ext_resource type="Script" path="res://ptt/idle.gd" id="3_crfpc"]
+[ext_resource type="Script" path="res://ptt/run.gd" id="4_737my"]
+[ext_resource type="Script" path="res://ptt/com_han.gd" id="5_vfbs2"]
+[ext_resource type="Texture2D" uid="uid://csk1dicruhia6" path="res://icon.svg" id="6_fkfea"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sdlw7"]
+size = Vector2(26, 40)
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_s8v8x")
+metadata/_edit_group_ = true
+
+[node name="fsm" type="Node" parent="."]
+script = ExtResource("2_2osc3")
+init_state = NodePath("idle")
+
+[node name="idle" type="Node" parent="fsm"]
+script = ExtResource("3_crfpc")
+
+[node name="run" type="Node" parent="fsm"]
+script = ExtResource("4_737my")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_sdlw7")
+
+[node name="com_han" type="Node" parent="."]
+script = ExtResource("5_vfbs2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.203125, 0.3125)
+texture = ExtResource("6_fkfea")
