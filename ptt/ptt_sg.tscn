@@ -9,15 +9,16 @@ size = Vector2(700, 78)
 [node name="ptt_sg" type="Node2D"]
 
 [node name="player" parent="." instance=ExtResource("1_dl08r")]
+position = Vector2(83, 140)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(256, 276)
+position = Vector2(258, 316)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_v2uh8")
 
-[node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(256.5, 301)
+[node name="Icon" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(0.5, 25)
 scale = Vector2(5.47656, 1)
 texture = ExtResource("2_lg8lt")
