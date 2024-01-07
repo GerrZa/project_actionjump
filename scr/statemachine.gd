@@ -26,6 +26,9 @@ func _input(event: InputEvent) -> void:
 	state.input(event)
 
 func transition(state_name:String, msg:={}):
+	if get_node(state_name) == null:
+		return
+	
 	state.exit()
 	prev_state = state
 	state = get_node(state_name)
