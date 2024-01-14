@@ -13,6 +13,22 @@ var p_in = 0
 
 func _physics_process(delta):
 	#print(p_in)
+	if Input.is_action_just_pressed("pshift") and is_on_floor():
+		for i in $obj_inter.get_overlapping_areas():
+			i.up()
+	elif Input.is_action_just_pressed("pshift") and !is_on_floor():
+		for i in $obj_inter.get_overlapping_areas():
+			if p_in >= 0:
+				i.kick("r")
+				velocity.x += -1500
+			elif p_in < 0:
+				i.kick("l")
+				velocity.x += 1500
+	
+	if Input.is_action_just_pressed("pj") and !is_on_floor():
+		for i in $obj_inter.get_overlapping_areas():
+			i.kick("d")
+			jump()
 	
 	match state:
 		IDLE:
@@ -30,7 +46,7 @@ func _physics_process(delta):
 			move_and_slide()
 			print("run")
 		AIR:
-			velocity.x += p_in * 70
+			velocity.x += p_in * 120
 			velocity.x = clamp(velocity.x,-225,225)
 			velocity.y += grav
 			velocity.y = clamp(velocity.y,-10000,350)
@@ -73,6 +89,6 @@ func jump():
 	velocity.y = -650
 
 func kickup():
-	if $obj_inter.get_overlapping_areas().size() != 0:
-		for i  in $obj_inter.get_overlapping_areas():
+	if $kick_area.get_overlapping_areas().size() != 0:
+		for i  in $kick_area.get_overlapping_areas():
 			i.up()
