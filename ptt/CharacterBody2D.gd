@@ -1,94 +1,51 @@
 extends CharacterBody2D
 
-enum {
-	IDLE,
-	RUN,
-	AIR,
-}
+var p_in = Vector2.ZERO
+var spd = 135
 
-var state = IDLE
+var maxhp = 100
+var hp = 100
 
-var grav = 45
-var p_in = 0
+var first_wp = null
+var sec_wp = null
 
-func _physics_process(delta):
-	#print(p_in)
-	if Input.is_action_just_pressed("pshift") and is_on_floor():
-		for i in $obj_inter.get_overlapping_areas():
-			i.up()
-	elif Input.is_action_just_pressed("pshift") and !is_on_floor():
-		for i in $obj_inter.get_overlapping_areas():
-			if p_in >= 0:
-				i.kick("r")
-				velocity.x += -1500
-			elif p_in < 0:
-				i.kick("l")
-				velocity.x += 1500
+func _process(delta: float) -> void:
+	p_in.x = Input.get_axis("left","right")
+	p_in.y = Input.get_axis("up","down")
 	
-	if Input.is_action_just_pressed("pj") and !is_on_floor():
-		for i in $obj_inter.get_overlapping_areas():
-			i.kick("d")
-			jump()
+	p_in = p_in.normalized()
 	
-	match state:
-		IDLE:
-			velocity.x = 0
-			velocity.y += grav
-			velocity.y = clamp(velocity.y,-10000,350)
-			
-			move_and_slide()
-			print("idle")
-		RUN:
-			velocity.x = p_in * 225
-			velocity.y += grav
-			velocity.y = clamp(velocity.y,-10000,350)
-			
-			move_and_slide()
-			print("run")
-		AIR:
-			velocity.x += p_in * 120
-			velocity.x = clamp(velocity.x,-225,225)
-			velocity.y += grav
-			velocity.y = clamp(velocity.y,-10000,350)
-			
-			move_and_slide()
-			print("air")
-			
+	$gui.look_at(get_global_mouse_position())
+	
+	if Input.is_action_just_pressed("m1"):
+		match first_wp:
+			null:
+				print("no weapon")
+			"gun":
+				shoot()
+			"shield":
+				parry()
+			"knife":
+				knife()
+	
+	
 
-func _process(delta):
-	p_in = Input.get_axis("pl","pr")
-	match state:
-		IDLE:
-			if p_in != 0:
-				c_state(RUN)
-			if is_on_floor() and Input.is_action_just_pressed("pj"):
-				c_state(AIR,["jump"])
-			if !is_on_floor():
-				c_state(AIR)
-		RUN:
-			if p_in == 0:
-				c_state(IDLE)
-			if is_on_floor() and Input.is_action_just_pressed("pj"):
-				c_state(AIR,["jump"])
-			if !is_on_floor():
-				c_state(AIR)
-		AIR:
-			if is_on_floor():
-				if p_in != 0:
-					c_state(RUN)
-				elif p_in == 0:
-					c_state(IDLE)
-
-func c_state(st,addi_func:=[]):
-	state = st
-	for i in addi_func:
-		call(i)
+func _physics_process(delta: float) -> void:
+	
+	velocity = p_in * spd
+	
+	move_and_slide()
+	
 	pass
 
-func jump():
-	velocity.y = -650
+func parry():
+	pass
 
-func kickup():
-	if $kick_area.get_overlapping_areas().size() != 0:
-		for i  in $kick_area.get_overlapping_areas():
-			i.up()
+func shoot():
+	pass
+
+func knife():
+	pass
+
+func grenade():
+	pass
