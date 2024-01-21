@@ -9,6 +9,8 @@ var hp = 100
 var first_wp = "gun"
 var sec_wp = null
 
+var money = 0
+
 func _process(delta: float) -> void:
 	p_in.x = Input.get_axis("left","right")
 	p_in.y = Input.get_axis("up","down")
@@ -62,3 +64,6 @@ func knife(knockback_dir):
 
 func grenade():
 	pass
+
+func hurt(value):
+	hp-=value

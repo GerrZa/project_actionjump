@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://hxf1xmerm8l4"]
+[gd_scene load_steps=10 format=3 uid="uid://hxf1xmerm8l4"]
 
 [ext_resource type="Texture2D" uid="uid://csk1dicruhia6" path="res://icon.svg" id="1_aglxc"]
 [ext_resource type="Script" path="res://ptt/CharacterBody2D.gd" id="2_xa1oy"]
-[ext_resource type="PackedScene" uid="uid://bdcdgbh2voluh" path="res://ptt/shooting_enemy.tscn" id="3_kcu2n"]
 [ext_resource type="Script" path="res://ptt/ProgressBar.gd" id="4_hte6x"]
+[ext_resource type="Script" path="res://ptt/Label.gd" id="4_sguyf"]
+[ext_resource type="PackedScene" uid="uid://b4rf67mwk8muq" path="res://ptt/attack_en.tscn" id="5_q6suo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_njxxi"]
 texture = ExtResource("1_aglxc")
@@ -209,7 +210,9 @@ sources/0 = SubResource("TileSetAtlasSource_njxxi")
 [sub_resource type="CircleShape2D" id="CircleShape2D_vpy7y"]
 radius = 7.0
 
-[node name="PttScene" type="Node2D"]
+[sub_resource type="LabelSettings" id="LabelSettings_4ohtx"]
+
+[node name="ptt_scn" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_02q6x")
@@ -218,7 +221,7 @@ layer_0/tile_data = PackedInt32Array(65535, 196608, 2, 0, 196608, 2, 65534, 1966
 
 [node name="plr" type="CharacterBody2D" parent="."]
 position = Vector2(43, 101)
-collision_mask = 35
+collision_mask = 33
 script = ExtResource("2_xa1oy")
 metadata/_edit_group_ = true
 
@@ -270,10 +273,6 @@ collision_mask = 2
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="plr/knife_area"]
 polygon = PackedVector2Array(0, 0, 13, -8, 17, -3, 17, 3, 13, 8)
 
-[node name="enemy" parent="." instance=ExtResource("3_kcu2n")]
-position = Vector2(96, 26)
-collision_mask = 32
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="ProgressBar" type="ProgressBar" parent="CanvasLayer"]
@@ -283,3 +282,16 @@ offset_right = 132.0
 offset_bottom = 13.0
 show_percentage = false
 script = ExtResource("4_hte6x")
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 162.0
+offset_top = 4.0
+offset_right = 496.0
+offset_bottom = 27.0
+text = "XXX$"
+label_settings = SubResource("LabelSettings_4ohtx")
+horizontal_alignment = 2
+script = ExtResource("4_sguyf")
+
+[node name="attack_en" parent="." instance=ExtResource("5_q6suo")]
+position = Vector2(198, 78)
