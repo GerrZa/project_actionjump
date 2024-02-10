@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ca1qpaqmgsthq"]
-
-[ext_resource type="Script" path="res://ptt/slash.gd" id="1_15dp7"]
-
-[node name="Polygon2D" type="Polygon2D"]
-polygon = PackedVector2Array(9, -7, 19, -3, 22, 0, 19, 3, 9, 7, 19, 0)
-script = ExtResource("1_15dp7")
