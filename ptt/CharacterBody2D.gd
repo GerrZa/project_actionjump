@@ -4,6 +4,7 @@ var p_input = Vector2.ZERO
 var curr_bullet = ["  ","  ","  ","  ","  ","  ",]
 var hold_bullet = ["  ","  ","  ","  ","  ","  ",]
 
+var hp = 250 
 
 func _process(delta: float) -> void:
 	
@@ -47,3 +48,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
+func hurt(value):
+	
+	hp-=value
+	

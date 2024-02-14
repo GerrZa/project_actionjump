@@ -1,0 +1,114 @@
+[gd_scene load_steps=8 format=3 uid="uid://bs1ff7dqhbows"]
+
+[ext_resource type="Script" path="res://ptt/enemy.gd" id="1_60epl"]
+[ext_resource type="Texture2D" uid="uid://csk1dicruhia6" path="res://icon.svg" id="2_iddoc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4luf8"]
+size = Vector2(30, 30)
+
+[sub_resource type="Animation" id="Animation_5lorn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.13333, 1.7)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ye72e"]
+resource_name = "open"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(0.392292, 1),
+"update": 0,
+"values": [Vector2(1.13333, 1.7), Vector2(0, 1.7)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k63hu"]
+_data = {
+"RESET": SubResource("Animation_5lorn"),
+"open": SubResource("Animation_ye72e")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mro0h"]
+radius = 52.345
+
+[node name="enemy" type="CharacterBody2D"]
+position = Vector2(139, 156)
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_60epl")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.234375, 0.234375)
+texture = ExtResource("2_iddoc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4luf8")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(0, -8.5)
+scale = Vector2(1.13333, 1.7)
+polygon = PackedVector2Array(-15, -15, 15, -15, 15, 15, -15, 15)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Polygon2D"]
+libraries = {
+"": SubResource("AnimationLibrary_k63hu")
+}
+
+[node name="bullet_dectect" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="bullet_dectect"]
+shape = SubResource("CircleShape2D_mro0h")
+
+[node name="main_dir" type="RayCast2D" parent="."]
+target_position = Vector2(50, 0)
+collision_mask = 0
+
+[node name="r" type="RayCast2D" parent="main_dir"]
+target_position = Vector2(0, -50)
+collision_mask = 0
+
+[node name="l" type="RayCast2D" parent="main_dir"]
+collision_mask = 0
