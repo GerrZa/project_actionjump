@@ -2,13 +2,20 @@
 
 [ext_resource type="Script" path="res://ptt/CharacterBody2D.gd" id="1_46x7o"]
 [ext_resource type="Texture2D" uid="uid://csk1dicruhia6" path="res://icon.svg" id="2_eqmnm"]
-[ext_resource type="Script" path="res://ptt/Polygon2D.gd" id="3_1fwgv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cx2at"]
 size = Vector2(28, 28)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1uehp"]
 size = Vector2(45, 30)
+
+[sub_resource type="GDScript" id="GDScript_qm5jk"]
+script/source = "extends Polygon2D
+
+
+func _process(delta: float) -> void:
+	global_position = get_global_mouse_position()
+"
 
 [node name="player" type="CharacterBody2D"]
 collision_mask = 2
@@ -41,4 +48,4 @@ shape = SubResource("RectangleShape2D_1uehp")
 [node name="cursor" type="Polygon2D" parent="."]
 scale = Vector2(0.25, 0.25)
 polygon = PackedVector2Array(0, -8, -8, 0, -16, 0, 0, -16, 16, 0, 0, 16, -16, 0, -8, 0, 0, 8, 8, 0)
-script = ExtResource("3_1fwgv")
+script = SubResource("GDScript_qm5jk")
