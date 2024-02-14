@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
 var p_input = Vector2.ZERO
-var curr_bullet = ["  ","  ","  ","  ","  ","  ",]
-var hold_bullet = ["  ","  ","  ","  ","  ","  ",]
+var curr_bullet = ["  ","  ","  ","  ","  ","  "]
+var hold_bullet = ["  ","  ","  ","  ","  ","  "]
 
-var hp = 250 
+var hp = 150
 
 func _process(delta: float) -> void:
 	
@@ -12,9 +12,9 @@ func _process(delta: float) -> void:
 	
 	$Marker2D.look_at(get_global_mouse_position())
 	
-	if Input.is_action_just_pressed("m1"):
+	if Input.is_action_just_pressed("m2"):
 		for i in $Marker2D/knife_area.get_overlapping_bodies():
-			i.hurt(30)
+			i.got_knifed()
 	
 	if Input.is_action_just_pressed("space"):
 		randomize()
@@ -26,14 +26,39 @@ func _process(delta: float) -> void:
 		match curr_bullet[0]:
 			"  ":
 				print("pheffff")
-			"x":
+				
+				curr_bullet.pop_front()
+				curr_bullet.append("  ")
+			"o":
 				var bullet = load("res://ptt/bullet.tscn").instantiate()
 				
 				bullet.global_position = global_position
-				bullet
+				bullet.dir = global_position.direction_to(get_global_mouse_position())
 				
 				get_tree().current_scene.add_child(bullet)
 				
+				curr_bullet.pop_front()
+				curr_bullet.append("  ")
+			"x":
+				var init_vector = global_position.direction_to(get_global_mouse_position())
+				init_vector = init_vector.rotated(deg_to_rad(-10))
+				
+				for i in range(3):
+					
+					var bullet = load("res://ptt/bullet.tscn").instantiate()
+					
+					bullet.global_position = global_position
+					bullet.dir = init_vector.rotated(deg_to_rad((i)*10))
+					
+					get_tree().current_scene.add_child(bullet)
+				
+				curr_bullet.pop_front()
+				curr_bullet.append("  ")
+				
+	
+	$Label.text = var_to_str(hp)
+	if hp<=0:
+		queue_free()
 
 
 func _physics_process(delta: float) -> void:

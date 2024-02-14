@@ -31,8 +31,14 @@ texture = ExtResource("2_eqmnm")
 
 [node name="knife_area" type="Area2D" parent="Marker2D"]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Marker2D/knife_area"]
 position = Vector2(9.5, 0)
 shape = SubResource("RectangleShape2D_1uehp")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -38.0
+offset_right = 20.0
+offset_bottom = -15.0
