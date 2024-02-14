@@ -232,6 +232,7 @@ z_index = -1
 position = Vector2(400, 300)
 scale = Vector2(6.25, 4.6875)
 texture = ExtResource("2_sgyfp")
+metadata/_edit_lock_ = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -275,5 +276,4 @@ position = Vector2(251, 293)
 
 [node name="droped_bull6" parent="." instance=ExtResource("5_asac8")]
 position = Vector2(430, 185)
-monitoring = false
 is_shotgun = true
