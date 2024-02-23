@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://be0vidwsrtflp"]
+
+[ext_resource type="Script" path="res://scr/actor/player/player.gd" id="1_v8a2c"]
+[ext_resource type="Texture2D" uid="uid://csk1dicruhia6" path="res://icon.svg" id="1_yg4b6"]
+[ext_resource type="Script" path="res://scr/actor/fsm/StateMachine_class.gd" id="2_xersj"]
+[ext_resource type="Script" path="res://scr/actor/player/state/idle.gd" id="3_25gpb"]
+[ext_resource type="Script" path="res://scr/actor/player/state/run.gd" id="4_fsobk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7tc3y"]
+radius = 8.0
+height = 26.0
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_v8a2c")
+
+[node name="fsm" type="Node" parent="."]
+script = ExtResource("2_xersj")
+init_state = NodePath("idle")
+
+[node name="idle" type="Node" parent="fsm"]
+script = ExtResource("3_25gpb")
+
+[node name="run" type="Node" parent="fsm"]
+script = ExtResource("4_fsobk")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(0, -10)
+scale = Vector2(0.171875, 0.21875)
+texture = ExtResource("1_yg4b6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_7tc3y")
