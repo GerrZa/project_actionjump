@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/8 - End Theme.ogg-7e163d52a17dd42d5c3dee0e27cc215b.oggstr"
+
+[deps]
+
+source_file="res://asset/ptt/NinjaAdventure/Musics/8 - End Theme.ogg"
+dest_files=[ "res://.import/8 - End Theme.ogg-7e163d52a17dd42d5c3dee0e27cc215b.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/19 - Ascension.ogg-868208518d5904437baec79fd0000260.oggstr"
+
+[deps]
+
+source_file="res://asset/ptt/NinjaAdventure/Musics/19 - Ascension.ogg"
+dest_files=[ "res://.import/19 - Ascension.ogg-868208518d5904437baec79fd0000260.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
