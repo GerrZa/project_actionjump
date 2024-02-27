@@ -1,0 +1,185 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://asset/ptt/free_character_0.png" type="Texture" id=1]
+[ext_resource path="res://scr/actor/player/player.gd" type="Script" id=2]
+[ext_resource path="res://scr/actor/StateMachine.gd" type="Script" id=3]
+[ext_resource path="res://scr/actor/player/state/idle.gd" type="Script" id=4]
+[ext_resource path="res://scr/actor/player/run.gd" type="Script" id=5]
+[ext_resource path="res://scr/actor/player/state/dash.gd" type="Script" id=6]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 4.00001
+height = 6.0
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "down"
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "left"
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "right"
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 24, 25, 26 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "up"
+length = 0.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 36, 37, 38 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=9]
+animation = "left"
+
+[sub_resource type="AnimationNodeAnimation" id=10]
+animation = "right"
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+animation = "up"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "down"
+
+[sub_resource type="AnimationNodeAnimation" id=16]
+animation = "down"
+
+[sub_resource type="AnimationNodeAnimation" id=17]
+animation = "up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=13]
+blend_point_0/node = SubResource( 9 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 10 )
+blend_point_1/pos = Vector2( 1, 0 )
+blend_point_2/node = SubResource( 11 )
+blend_point_2/pos = Vector2( -0.3, -1 )
+blend_point_3/node = SubResource( 12 )
+blend_point_3/pos = Vector2( -0.3, 1 )
+blend_point_4/node = SubResource( 16 )
+blend_point_4/pos = Vector2( 0.3, 1 )
+blend_point_5/node = SubResource( 17 )
+blend_point_5/pos = Vector2( 0.3, -1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachine" id=14]
+states/run/node = SubResource( 13 )
+states/run/position = Vector2( 579.421, 16.2632 )
+start_node = "run"
+graph_offset = Vector2( 24, -51 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=15]
+
+[node name="player" type="KinematicBody2D"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.57079
+shape = SubResource( 1 )
+
+[node name="FreeCharacter0" type="Sprite" parent="."]
+position = Vector2( 0, -3 )
+texture = ExtResource( 1 )
+hframes = 12
+vframes = 8
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FreeCharacter0"]
+anims/RESET = SubResource( 8 )
+anims/down = SubResource( 4 )
+anims/left = SubResource( 5 )
+anims/right = SubResource( 6 )
+anims/up = SubResource( 7 )
+
+[node name="AnimationTree" type="AnimationTree" parent="FreeCharacter0"]
+tree_root = SubResource( 14 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 15 )
+parameters/run/blend_position = Vector2( -0.44671, -0.275127 )
+
+[node name="fsm" type="Node" parent="."]
+script = ExtResource( 3 )
+init_state = NodePath("idle")
+
+[node name="idle" type="Node" parent="fsm"]
+script = ExtResource( 4 )
+
+[node name="run" type="Node" parent="fsm"]
+script = ExtResource( 5 )
+
+[node name="dash" type="Node" parent="fsm"]
+script = ExtResource( 6 )
+
+[node name="curr_state" type="Node2D" parent="."]
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Label" type="Label" parent="curr_state"]
+margin_left = -41.0
+margin_top = -50.0
+margin_right = 42.0
+margin_bottom = -36.0
