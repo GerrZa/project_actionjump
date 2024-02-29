@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scr/obj/player_gun/gun_stack.tscn" type="PackedScene" id=1]
+
+[node name="gun_vp" type="Viewport"]
+size = Vector2( 20, 20 )
+transparent_bg = true
+render_target_v_flip = true
+
+[node name="gun_stack" parent="." instance=ExtResource( 1 )]
