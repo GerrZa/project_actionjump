@@ -61,8 +61,10 @@ func _ready():
 	
 
 func _physics_process(delta):
-	print("anchor : " + String($gun_anchor.rotation_degrees))
-	print("gun : " + String($gun_anchor/gun.rotation_degrees))
+#	print("anchor : " + String($gun_anchor.rotation_degrees))
+#	print("gun : " + String($gun_anchor/gun.rotation_degrees))
+	print(Engine.get_frames_per_second())
+	pass
 
 func _process(delta):
 	p_input.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
@@ -73,7 +75,6 @@ func _process(delta):
 	if p_input != Vector2.ZERO:
 		last_dir = p_input
 	
-	animtree.set("parameters/run/blend_position",last_dir)
 	
 	if global_position.direction_to(get_global_mouse_position()).y < 0:
 		$gun_anchor/gun.z_index = -1
@@ -91,4 +92,31 @@ func _process(delta):
 	$gun_anchor/gun.rotation_degrees = -$gun_anchor.rotation_degrees
 	
 	$gun_anchor.global_position += $gun_anchor.global_position.direction_to(global_position - Vector2(0,4)) * $gun_anchor.global_position.distance_to(global_position - Vector2(0,4)) * 0.175
+	
+
+func load_bullet():
+	
+	#clear chamber
+	curr_bullet = []
+	
+	#Replace with hold bullet
+	curr_bullet.append_array(hold_bullet)
+	
+	#add emptu slot
+	for i in range(6 - curr_bullet.size()):
+		curr_bullet.append("e")
+	
+	#clear hold bullet
+	hold_bullet = []
+	
+	randomize()
+	
+	#shuffle it
+	curr_bullet.shuffle()
+	
+	#RELOAD ANIM / FX
+	
+	yield(get_tree().create_timer(reload_time),"timeout")
+	
+	# AFTER LOAD FX
 	

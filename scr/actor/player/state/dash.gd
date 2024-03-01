@@ -23,3 +23,4 @@ func update(delta):
 			fsm.transition("run")
 		elif plr.p_input == Vector2.ZERO:
 			fsm.transition("idle")
+	owner.animtree.set("parameters/run/blend_position",owner.last_dir)

@@ -12,3 +12,4 @@ func update(delta):
 	
 	if Input.is_action_just_pressed("ui_shift"):
 		fsm.transition("dash")
+	owner.animtree.set("parameters/run/blend_position",owner.last_dir)

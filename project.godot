@@ -53,14 +53,23 @@ config/icon="res://icon.png"
 BulletCenter="*res://scr/tool/BulletCenter.gd"
 ParticleCenter="*res://scr/tool/part_center/ParticleCenter.gd"
 
+[debug]
+
+settings/fps/force_fps=60
+
 [display]
 
 window/size/width=497
 window/size/height=280
 window/size/test_width=994
 window/size/test_height=560
+window/vsync/use_vsync=false
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
+
+[global]
+
+vsync=false
 
 [gui]
 

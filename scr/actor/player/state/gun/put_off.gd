@@ -3,7 +3,7 @@ extends State
 
 
 func start(msg:={}):
-	var tween := create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	var tween := create_tween().set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
 	tween.tween_property(owner.get_node("gun_anchor/gun"),"position",Vector2.ZERO,owner.pull_back_time)
 	tween.parallel().tween_property(owner.get_node("gun_anchor/gun"),"modulate",Color(1,1,1,0),owner.fade_out_time)
 	

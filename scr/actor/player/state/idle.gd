@@ -10,3 +10,4 @@ func physics_update(delta):
 func update(detla):
 	if plr.p_input != Vector2.ZERO:
 		fsm.transition("run")
+	owner.animtree.set("parameters/run/blend_position",owner.last_dir)

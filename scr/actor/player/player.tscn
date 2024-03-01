@@ -246,3 +246,5 @@ material = SubResource( 18 )
 offset = Vector2( 0, 2 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
