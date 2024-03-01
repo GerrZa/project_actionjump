@@ -2,7 +2,6 @@
 extends State
 
 
-
 func update(delta):
 	owner.get_node("gun_anchor").look_at(owner.get_global_mouse_position())
 	
@@ -11,3 +10,6 @@ func update(delta):
 	
 	if Input.is_action_just_pressed("ui_reload") and owner.hold_bullet.size() > 0:
 		fsm.transition("load")
+	
+	if Input.get_action_strength("ui_m2") == 0:
+		fsm.transition("put_off")

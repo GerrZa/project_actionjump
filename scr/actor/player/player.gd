@@ -8,8 +8,17 @@ var motion := Vector2.ZERO
 var speed = 130
 var dash_speed = 450
 
+var pull_back_time = 0.3
+var fade_out_time = 0.1
+
+var pull_on_time = 0.25
+
+var aim_walk_speed = 30
+var aim_acc = 10
+
 var friction = 30
 var acc = 20
+
 
 var curr_bullet := ["e","e","e","e","e","e"]
 var hold_bullet := []
@@ -23,6 +32,7 @@ var reload_time = 0.7
 signal bullet_full
 
 onready var animtree = $FreeCharacter0/AnimationTree
+onready var tween = $Tween
 
 var gun_stack_scn = preload("res://scr/obj/player_gun/gun_stack.tscn")
 var base_gun = null
@@ -45,14 +55,14 @@ func _ready():
 	
 	get_tree().current_scene.add_child(vp)
 	
-	$gun.texture = vp.get_texture()
+	$gun_anchor/gun.texture = vp.get_texture()
 	
 	vp.add_child(base_gun)
 	
 
 func _physics_process(delta):
-	print(curr_bullet)
-	print(hold_bullet)
+	print("anchor : " + String($gun_anchor.rotation_degrees))
+	print("gun : " + String($gun_anchor/gun.rotation_degrees))
 
 func _process(delta):
 	p_input.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
@@ -66,9 +76,9 @@ func _process(delta):
 	animtree.set("parameters/run/blend_position",last_dir)
 	
 	if global_position.direction_to(get_global_mouse_position()).y < 0:
-		$gun.z_index = -1
+		$gun_anchor/gun.z_index = -1
 	elif global_position.direction_to(get_global_mouse_position()).y > 0:
-		$gun.z_index = 1
+		$gun_anchor/gun.z_index = 1
 		
 	
 	$curr_state/Label.text = $fsm.state.name
@@ -77,7 +87,8 @@ func _process(delta):
 	shoot_pos = $gun_anchor/shoot_pos.global_position
 	
 	base_gun.look_at_vec = $gun_anchor.global_position.direction_to(get_global_mouse_position()) + Vector2(9,14)
-	$gun.global_position = $gun_anchor/gun_pos_mark.global_position
+#	$gun.global_position = $gun_anchor/gun_pos_mark.global_position
+	$gun_anchor/gun.rotation_degrees = -$gun_anchor.rotation_degrees
 	
 	$gun_anchor.global_position += $gun_anchor.global_position.direction_to(global_position - Vector2(0,4)) * $gun_anchor.global_position.distance_to(global_position - Vector2(0,4)) * 0.175
 	
