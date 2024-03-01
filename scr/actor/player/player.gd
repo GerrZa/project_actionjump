@@ -14,6 +14,12 @@ var acc = 20
 var curr_bullet := ["e","e","e","e","e","e"]
 var hold_bullet := []
 
+# after shoot cooldown
+var empty_af_cd = 0.35
+var def_af_cd = 0.55
+
+var reload_time = 0.7
+
 signal bullet_full
 
 onready var animtree = $FreeCharacter0/AnimationTree
@@ -44,6 +50,10 @@ func _ready():
 	vp.add_child(base_gun)
 	
 
+func _physics_process(delta):
+	print(curr_bullet)
+	print(hold_bullet)
+
 func _process(delta):
 	p_input.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	p_input.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
@@ -62,6 +72,7 @@ func _process(delta):
 		
 	
 	$curr_state/Label.text = $fsm.state.name
+	$curr_state/Label2.text = $gun_fsm.state.name
 	
 	shoot_pos = $gun_anchor/shoot_pos.global_position
 	

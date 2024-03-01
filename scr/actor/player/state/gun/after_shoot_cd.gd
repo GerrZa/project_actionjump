@@ -1,9 +1,9 @@
 extends State
 
-var def_cd = 0.5
-
 func start(msg:={}):
 	if msg.has("cd"):
+		
+		owner.curr_bullet.remove(0)
 		
 		yield(get_tree().create_timer(msg["cd"]),"timeout")
 		

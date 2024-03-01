@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://asset/ptt/free_character_0.png" type="Texture" id=1]
 [ext_resource path="res://scr/actor/player/player.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scr/actor/player/state/gun/idle.gd" type="Script" id=7]
 [ext_resource path="res://scr/actor/player/state/gun/shoot.gd" type="Script" id=8]
 [ext_resource path="res://scr/actor/player/state/gun/after_shoot_cd.gd" type="Script" id=9]
+[ext_resource path="res://scr/actor/player/state/gun/load.gd" type="Script" id=10]
 [ext_resource path="res://scr/obj/player_gun/outline_shader.tres" type="Shader" id=11]
 
 [sub_resource type="CapsuleShape2D" id=1]
@@ -196,6 +197,9 @@ script = ExtResource( 8 )
 [node name="after_shoot_cd" type="Node" parent="gun_fsm"]
 script = ExtResource( 9 )
 
+[node name="load" type="Node" parent="gun_fsm"]
+script = ExtResource( 10 )
+
 [node name="curr_state" type="Node2D" parent="."]
 scale = Vector2( 0.5, 0.5 )
 
@@ -204,6 +208,13 @@ margin_left = -41.0
 margin_top = -50.0
 margin_right = 42.0
 margin_bottom = -36.0
+
+[node name="Label2" type="Label" parent="curr_state"]
+modulate = Color( 1, 0, 0, 1 )
+margin_left = -30.0
+margin_top = 8.0
+margin_right = 53.0
+margin_bottom = 22.0
 
 [node name="gun" type="Sprite" parent="."]
 material = SubResource( 18 )
@@ -216,4 +227,4 @@ position = Vector2( 0, -4 )
 position = Vector2( 39, 0 )
 
 [node name="shoot_pos" type="Position2D" parent="gun_anchor"]
-position = Vector2( 54, 0 )
+position = Vector2( 44, 0 )

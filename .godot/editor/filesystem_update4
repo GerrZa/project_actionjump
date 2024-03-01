@@ -1,0 +1,6 @@
+res://ptt/enemy.tscn
+res://scr/actor/player/player.tscn
+res://scr/level/ptt_room.tscn
+res://scr/actor/player/state/idle.gd
+res://scr/actor/player/player.gd
+res://scr/actor/player/state/run.gd
