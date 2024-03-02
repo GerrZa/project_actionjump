@@ -27,12 +27,18 @@ var hold_bullet := []
 var empty_af_cd = 0.35
 var def_af_cd = 0.55
 
-var reload_time = 0.7
-
 signal bullet_full
 
+onready var reload_tm = $reload_timer
+var reload_time = 1.5
+var reload_time_left = 0
+
+var reloading = false
+
+onready var shoot_tm = $shoot_cd
+var temp_base_shoot_cd = 1
+
 onready var animtree = $FreeCharacter0/AnimationTree
-onready var tween = $Tween
 
 var gun_stack_scn = preload("res://scr/obj/player_gun/gun_stack.tscn")
 var base_gun = null
@@ -82,6 +88,9 @@ func _process(delta):
 		$gun_anchor/gun.z_index = 1
 		
 	
+	$gun_anchor/gun_cam.global_position = $gun_anchor.global_position + $gun_anchor.global_position.direction_to($gun_anchor/gun_pos_mark.global_position) * 50
+	
+	
 	$curr_state/Label.text = $fsm.state.name
 	$curr_state/Label2.text = $gun_fsm.state.name
 	
@@ -93,8 +102,18 @@ func _process(delta):
 	
 	$gun_anchor.global_position += $gun_anchor.global_position.direction_to(global_position - Vector2(0,4)) * $gun_anchor.global_position.distance_to(global_position - Vector2(0,4)) * 0.175
 	
+	reload_time_left = reload_tm.time_left
+	$reload_bar_base.scale.x = reload_time_left / reload_time
+	
+	$shoot_cd_bar_base.scale.x = shoot_tm.time_left / temp_base_shoot_cd
+	
+	if reloading == false and Input.is_action_just_pressed("ui_reload"):
+		load_bullet()
 
 func load_bullet():
+	
+	reload_tm.start(reload_time)
+	reloading = true
 	
 	#clear chamber
 	curr_bullet = []
@@ -116,7 +135,8 @@ func load_bullet():
 	
 	#RELOAD ANIM / FX
 	
-	yield(get_tree().create_timer(reload_time),"timeout")
+	yield(reload_tm,"timeout")
 	
+	reloading = false
 	# AFTER LOAD FX
 	

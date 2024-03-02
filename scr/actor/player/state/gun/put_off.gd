@@ -18,3 +18,6 @@ func start(msg:={}):
 
 func update(delta):
 	owner.get_node("gun_anchor").look_at(owner.get_global_mouse_position())
+	
+	owner.get_node("Camera2D").global_position = owner.global_position
+	

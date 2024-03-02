@@ -15,4 +15,6 @@ func update(delta):
 	
 	if Input.is_action_just_pressed("ui_reload"):
 		fsm.transition("load")
+	
+	owner.get_node("Camera2D").global_position = owner.get_node("gun_anchor/gun_cam").global_position
 

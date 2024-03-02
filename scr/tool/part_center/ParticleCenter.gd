@@ -31,7 +31,7 @@ func spawn_part(part_name: String,pos:Vector2,custom_offset:=Vector2.ZERO,center
 	
 	spr.global_position = pos
 	
+	get_tree().current_scene.add_child(spr)
+	
 	if look:
 		spr.look_at(look_pos)
-	
-	get_tree().current_scene.add_child(spr)
