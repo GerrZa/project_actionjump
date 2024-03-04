@@ -254,7 +254,7 @@ smoothing_enabled = true
 smoothing_speed = 10.0
 
 [node name="reload_bar_base" type="Node2D" parent="."]
-position = Vector2( -9, -21 )
+position = Vector2( -9, -20 )
 
 [node name="reload_bar" type="ColorRect" parent="reload_bar_base"]
 margin_top = -1.0
@@ -265,10 +265,9 @@ margin_bottom = 1.0
 one_shot = true
 
 [node name="shoot_cd_bar_base" type="Node2D" parent="."]
-position = Vector2( -9, -25 )
+position = Vector2( -9, -23 )
 
 [node name="ColorRect" type="ColorRect" parent="shoot_cd_bar_base"]
-margin_top = 1.0
 margin_right = 18.0
-margin_bottom = 2.0
+margin_bottom = 1.0
 color = Color( 0.992157, 0.792157, 0.00784314, 1 )

@@ -8,7 +8,7 @@
 script = ExtResource( 3 )
 
 [node name="player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 235, 141 )
+position = Vector2( 248, 140 )
 
 [node name="pickup_bullet" parent="." instance=ExtResource( 2 )]
 position = Vector2( 137, 160 )

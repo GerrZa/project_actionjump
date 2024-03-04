@@ -69,7 +69,7 @@ func _ready():
 func _physics_process(delta):
 #	print("anchor : " + String($gun_anchor.rotation_degrees))
 #	print("gun : " + String($gun_anchor/gun.rotation_degrees))
-	print(Engine.get_frames_per_second())
+#	print(Engine.get_frames_per_second())
 	pass
 
 func _process(delta):
